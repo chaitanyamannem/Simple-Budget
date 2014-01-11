@@ -1,0 +1,36 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Foundation | Welcome</title>
+<link rel="stylesheet" href="css/foundation.css" />
+
+
+<script src="js/modernizr.js"></script>
+</head>
+<body>
+	<h1 class="small-3 large-centered columns">Add An Expense</h1>
+
+	<div class="row collapse">
+		<div class="small-2 large-4 columns">
+			<span class="prefix">Amount</span> <input type="text" name="tags"
+				class="tm-input" placeholder="Enter Value"> <span
+				class="prefix">Tags</span> <input type="text"
+				placeholder="Enter Tags"> <span class="prefix">Spent
+				@</span> <input type="text" placeholder="Enter Tags">
+		</div>
+		<div class="small-10 large-8 columns">
+			<p>Categories will come here</p>
+		</div>
+	</div>
+
+	<script src="js/jquery.js"></script>
+	<script src="js/foundation.min.js"></script>
+	<script src="js/tagmanager.js"></script>
+	<script>
+		$(document).foundation();
+		jQuery(".tm-input").tagsManager();
+	</script>
+</body>
+</html>
