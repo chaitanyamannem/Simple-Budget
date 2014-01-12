@@ -16,8 +16,8 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
-            <li><a href="/SimpleBudget-0.1/expenses/add">Add</a></li>
-            <li><a href="/SimpleBudget-0.1/expenses/show/onDate?onDate=">Show</a></li>
+            <li><a href="/SimpleBudget-0.2/expenses/add">Add</a></li>
+            <li><a href="/SimpleBudget-0.2/expenses/show/onDate?onDate=">Show</a></li>
             <!-- <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
               <ul class="dropdown-menu">

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bus.sbud.dao.CategoryDAO;
 import com.bus.sbud.dao.ExpenseDAO;
 import com.bus.sbud.dao.TagDAO;
 import com.bus.sbud.model.Expense;
@@ -44,7 +45,8 @@ public class ExpenseController {
 	@RequestMapping({ "/getExpenseData" })
 	public String saveExpense(@RequestParam("amount") double amount,
 			@RequestParam("hidden-tags") String hiddenTags,
-			Map<String, Object> model) {
+			@RequestParam("date") String date,
+			@RequestParam("category") String category, Map<String, Object> model) {
 		logger.info("########Entered expense controller - /getExpenseData ##########");
 		logger.info(hiddenTags);
 		logger.info(amount + "");
@@ -52,14 +54,21 @@ public class ExpenseController {
 		String[] tags = StringUtils.split(hiddenTags, ',');
 		ExpenseDAO expenseDao = new ExpenseDAO();
 		TagDAO tagDao = new TagDAO();
+		CategoryDAO categoryDAO = new CategoryDAO();
 		Expense expense = new Expense();
 		expense.setAmount(amount);
+
 		Date today = new Date();
-		expense.setWhenCreated(today);
-		expense.setTlm(today);
+		Date parsedDate = DateUtil.parseDate(date,
+				DateUtil.DATE_FORMAT_DD_MM_YYYY_WITH_SLASH);
+		Date spentOn = parsedDate == null ? today : parsedDate;
+		expense.setWhenCreated(spentOn);
+		expense.setTlm(spentOn);
 
 		try {
+			expense.setCategoryId(categoryDAO.findIdByName(category));
 			expense.setId(expenseDao.save(expense));
+			logger.info(expense.getCategoryId() + "*****");
 			for (String tagName : tags) {
 				long tagId = tagDao.findIdByName(tagName);
 				if (tagId == -1) {
@@ -80,17 +89,20 @@ public class ExpenseController {
 	}
 
 	@RequestMapping({ "/show/onDate" })
-	public String showExpensesOnDate(@RequestParam("onDate") String onDate,Map<String, Object> model) {
-		
+	public String showExpensesOnDate(@RequestParam("onDate") String onDate,
+			Map<String, Object> model) {
+
 		ExpenseDAO expenseDao = new ExpenseDAO();
 		TagDAO tagDao = new TagDAO();
-		//onDate = "2014-01-08";
-		Date date = DateUtil.parseDate(onDate);
+		// onDate = "2014-01-08";
+		Date date = DateUtil.parseDate(onDate,
+				DateUtil.DATE_FORMAT_YYYY_MM_DD_WITH_DASH);
 		try {
-			List<Long> expenseids = expenseDao.findExpensesByDate(date == null ? new Date() : date);
+			List<Long> expenseids = expenseDao
+					.findExpensesByDate(date == null ? new Date() : date);
 			List<Expense> expenses = new ArrayList<Expense>();
-			for(Long id : expenseids){
-				Expense expense = expenseDao.findById(id);								
+			for (Long id : expenseids) {
+				Expense expense = expenseDao.findById(id);
 				List<Long> tagids = tagDao.findTagsByExpense(id);
 				expense.setTags(tagDao.findTagNamesByIds(tagids));
 				expenses.add(expense);
@@ -103,6 +115,5 @@ public class ExpenseController {
 
 		return "showExpensesPage";
 	}
-	
 
 }

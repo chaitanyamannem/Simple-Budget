@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.bus.sbud.model.Expense;
 import com.bus.sbud.util.JDBCConnectionManager;
@@ -16,6 +17,7 @@ import com.bus.sbud.util.JDBCConnectionManager;
  * 
  */
 public class ExpenseDAO {
+	private static final Logger logger = Logger.getLogger("ExpenseDAO");
 	private static Connection con = JDBCConnectionManager.getConnection();
 	private static PreparedStatement pstmt = null;
 
@@ -26,7 +28,12 @@ public class ExpenseDAO {
 	 */
 	public Long save(Expense expense) throws SQLException {
 
-		String insertExpense = "INSERT INTO Expense(AMOUNT,WHEN_CREATED,TLM) VALUES (?,?,?);";
+		String insertExpense = "INSERT INTO Expense(AMOUNT,WHEN_CREATED,TLM,CATEGORY_ID) VALUES (?,?,?,?);";
+		// Always set the category id to default option other(id=1) if category
+		// is not known
+		Long categoryId = expense.getCategoryId() == null ? 1L : expense
+				.getCategoryId();
+		logger.info(categoryId + "========");
 		try {
 			pstmt = con.prepareStatement(insertExpense,
 					java.sql.Statement.RETURN_GENERATED_KEYS);
@@ -35,7 +42,7 @@ public class ExpenseDAO {
 			pstmt.setDate(2, new java.sql.Date(expense.getWhenCreated()
 					.getTime()));
 			pstmt.setDate(3, new java.sql.Date(expense.getTlm().getTime()));
-
+			pstmt.setLong(4, categoryId);
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
 			rs.first();
