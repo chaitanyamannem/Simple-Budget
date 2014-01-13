@@ -23,20 +23,49 @@
 		/> <property name="prefix" value="/WEB-INF/view/" /> <property name="suffix" 
 		value=".jsp" /> </bean> -->
 
-	<!-- support for tiles -->
-
-	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-		<!--Don't add suffix or prefix like you do with .jsp files -->
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.tiles3.TilesView" />
-	</bean>
-
-	<bean id="tilesConfigurer"
-		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
-		<property name="definitions">
-			<value>/WEB-INF/tiles.xml</value>
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="order" value="1" />
+		<property name="mediaTypes">
+			<map>
+				<entry key="html" value="text/html" />
+				<entry key="json" value="application/json" />
+			</map>
+		</property>
+		
+		<property name="defaultViews">
+			<list>
+				<bean
+					class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+					<property name="prefixJson" value="true" />
+				</bean>
+			</list>
 		</property>
 	</bean>
+	
+
+		
+			
+				<!-- support for tiles -->
+				<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+				<property name="order" value="2" />
+					<!--Don't add suffix or prefix like you do with .jsp files -->
+					<property name="viewClass"
+						value="org.springframework.web.servlet.view.tiles3.TilesView" />
+				</bean>
+				<bean id="tilesConfigurer"
+					class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+					<property name="definitions">
+						<value>/WEB-INF/tiles.xml</value>
+					</property>
+				</bean>
+			
+		
+
+
+
+
+
 
 
 

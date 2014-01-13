@@ -3,6 +3,8 @@
 	href="<c:url value="/resources/css/tagmanager.css" />" />
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/datepicker.css" />" />
+	<link rel="stylesheet"
+	href="<c:url value="/resources/css/custom/autocomplete.css" />" />
 
 <div class="container">
 	<div class="row">
@@ -55,7 +57,7 @@
 					</div>
 
 					<div class="form-group">
-						<label for="tags">Tags</label> <input type="text" name="tags"
+						<label for="tags">Tags</label> <input type="text" id="tags" name="tags"
 							class="tm-input form-control" placeholder="Enter Tags">
 					</div>
 
@@ -83,6 +85,8 @@
 <script src="<c:url value="/resources/js/custom/tagmanager.js" />"></script>
 <script src="<c:url value="/resources/js/custom/category.js" />"></script>
 <script src="<c:url value="/resources/js/bootstrap-datepicker.js" />"></script>
+<script src="<c:url value="/resources/js/jquery.autocomplete.js" />"></script>
+<script src="<c:url value="/resources/js/custom/autocomplete.js" />"></script>
 <script>
 	$(document).ready(function() {
 		$(".tm-input").tagsManager();
