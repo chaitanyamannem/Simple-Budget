@@ -18,8 +18,8 @@
 </div> --%>
 
 <h1 class="col-md-8 col-md-offset-2">Expenses</h1>
-<div class="col-md-8 col-md-offset-2" >
-	<table id="box-table-a" >
+<div class="col-md-8 col-md-offset-2">
+	<table id="box-table-a">
 		<thead>
 			<tr>
 				<th>Tags</th>
@@ -37,6 +37,13 @@
 					</tr>
 				</c:forEach>
 			</c:if>
+		<tfoot>
+			<tr>
+      <td>Total</td>
+      <td>&#8377;&nbsp;${total}</td> 
+    </tr>
+  </tfoot>
 		</tbody>
+		
 	</table>
 </div>

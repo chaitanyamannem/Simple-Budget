@@ -91,7 +91,7 @@ public class ExpenseController {
 	@RequestMapping({ "/show/onDate" })
 	public String showExpensesOnDate(@RequestParam("onDate") String onDate,
 			Map<String, Object> model) {
-
+		double total = 0.0;
 		ExpenseDAO expenseDao = new ExpenseDAO();
 		TagDAO tagDao = new TagDAO();
 		// onDate = "2014-01-08";
@@ -106,8 +106,10 @@ public class ExpenseController {
 				List<Long> tagids = tagDao.findTagsByExpense(id);
 				expense.setTags(tagDao.findTagNamesByIds(tagids));
 				expenses.add(expense);
-				model.put("expenses", expenses);
+				total = total + expense.getAmount();
 			}
+			model.put("expenses", expenses);
+			model.put("total", total);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
