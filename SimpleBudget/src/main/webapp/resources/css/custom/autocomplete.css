@@ -1,4 +1,15 @@
 .autocomplete-suggestions div {
-	background-color: #47A447;
+	background-color: #30AED6;
 	color: #fff;
+	font-size: 20px;
+}
+
+.autocomplete-suggestions strong {
+	font-weight: normal;
+	color: #000;
+}
+
+.autocomplete-suggestions .autocomplete-selected {
+  background: none repeat scroll 0 0 #999;
+  color: #000;
 }
