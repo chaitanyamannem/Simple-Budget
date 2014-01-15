@@ -6,6 +6,7 @@ package com.bus.sbud.controllers;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -14,6 +15,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bus.sbud.dao.CategoryDAO;
 import com.bus.sbud.dao.ExpenseDAO;
@@ -21,6 +23,7 @@ import com.bus.sbud.dao.TagDAO;
 import com.bus.sbud.model.Expense;
 import com.bus.sbud.model.Tag;
 import com.bus.sbud.util.DateUtil;
+import com.bus.sbud.util.PieJSON;
 
 /**
  * This class deals with all expense related stuff.
@@ -117,5 +120,12 @@ public class ExpenseController {
 
 		return "showExpensesPage";
 	}
+	
+	@RequestMapping({ "/showcat" })
+	public String showExpensesOnDate(
+			Map<String, Object> model) {
+		return "showCat";
+	}
 
+	
 }

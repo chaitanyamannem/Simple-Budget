@@ -15,4 +15,7 @@
 	<definition name="showExpensesPage" extends="baseLayout">
 		<put-attribute name="primary-content"  value="/WEB-INF/tiles/showExpensesPage.jsp" />
 	</definition>
+	<definition name="showCat" extends="baseLayout">
+		<put-attribute name="primary-content"  value="/WEB-INF/tiles/showCategoryPie.jsp" />
+	</definition>
 </tiles-definitions>
