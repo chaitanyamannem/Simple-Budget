@@ -60,6 +60,34 @@ public class ExpenseDAO {
 
 	}
 
+	public void update(Expense expense) throws SQLException {
+
+		String updateExpense = "UPDATE EXPENSE SET AMOUNT=?,TLM=?,CATEGORY_ID = ? WHERE ID = ?;";
+		// Always set the category id to default option other(id=1) if category
+		// is not known
+		Long categoryId = expense.getCategoryId() == null ? 1L : expense
+				.getCategoryId();
+		logger.info(categoryId + "========");
+		try {
+			pstmt = con.prepareStatement(updateExpense);
+
+			pstmt.setDouble(1, expense.getAmount());
+
+			pstmt.setDate(2, new java.sql.Date(expense.getTlm().getTime()));
+			pstmt.setLong(3, categoryId);
+			pstmt.setLong(4, expense.getId());
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				pstmt.close();
+			}
+		}
+
+	}
+
 	public Expense findById(long id) throws SQLException {
 
 		String getExpenseId = "SELECT * FROM EXPENSE WHERE ID= ?;";
@@ -72,6 +100,7 @@ public class ExpenseDAO {
 			while (rs.next()) {
 				expense.setId(rs.getLong(1));
 				expense.setAmount(rs.getDouble(2));
+				expense.setCategoryId(rs.getLong("CATEGORY_ID"));
 			}
 			return expense;
 		} catch (SQLException se) {

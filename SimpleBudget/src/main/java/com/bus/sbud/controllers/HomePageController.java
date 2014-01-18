@@ -20,7 +20,7 @@ public class HomePageController {
 	
 	private static final Logger logger = Logger.getLogger("HomePageController");
 	
-	@RequestMapping({"/","/home"})
+	@RequestMapping({"/welcome"})
 	public String showHomePage(Map<String, Object> model){
 		logger.info("########Entered homepage controller ##########");
 		model.put("welcome", "Welcome to the joy of money management");

@@ -32,7 +32,7 @@
 				<entry key="json" value="application/json" />
 			</map>
 		</property>
-		
+
 		<property name="defaultViews">
 			<list>
 				<bean
@@ -42,25 +42,25 @@
 			</list>
 		</property>
 	</bean>
-	
 
-		
-			
-				<!-- support for tiles -->
-				<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-				<property name="order" value="2" />
-					<!--Don't add suffix or prefix like you do with .jsp files -->
-					<property name="viewClass"
-						value="org.springframework.web.servlet.view.tiles3.TilesView" />
-				</bean>
-				<bean id="tilesConfigurer"
-					class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
-					<property name="definitions">
-						<value>/WEB-INF/tiles.xml</value>
-					</property>
-				</bean>
-			
-		
+
+
+
+	<!-- support for tiles -->
+	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="order" value="2" />
+		<!--Don't add suffix or prefix like you do with .jsp files -->
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.tiles3.TilesView" />
+	</bean>
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<value>/WEB-INF/tiles.xml</value>
+		</property>
+	</bean>
+
+
 
 
 

@@ -8,6 +8,6 @@
 		<title>Welcome</title>
 	</head> 
 	<body>
-		<h2>home template</h2>
+		<h2>Success</h2>
 	</body>
 </html>

@@ -42,6 +42,10 @@
 						</button>
 					</div>
 					<div class="btn-group col-md-12">
+					<button type="button" value="bills"
+							class="btn btn-success btn-lg active">
+							<span class="glyphicon glyphicon-paperclip"></span>&nbsp;Bills
+						</button>
 						<button type="button" value="other"
 							class="btn btn-success btn-lg active">
 							<span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp;Other&nbsp;&nbsp;

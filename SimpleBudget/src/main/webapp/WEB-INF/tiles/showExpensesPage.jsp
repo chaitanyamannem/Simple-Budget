@@ -1,4 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet"
+	href="<c:url value="/resources/css/tagmanager.css" />" />
+<link rel="stylesheet"
+	href="<c:url value="/resources/css/custom/autocomplete.css" />" />
 <h1 class="col-md-8 col-md-offset-2">Expenses</h1>
 <div class="col-md-8 col-md-offset-2">
 	<!-- Modal -->
@@ -6,6 +10,7 @@
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
+			<form role="form" action="edit">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
@@ -14,9 +19,9 @@
 				<div class="modal-body">
 					<div class="container">
 						<div class="row">
-							
+
 							<div class="col-md-5">
-								<form role="form" action="getExpenseData">
+								
 									<div class="col-md-6 category ">
 										<label class="col-md-12">Category</label>
 										<div class="btn-group col-md-12">
@@ -48,6 +53,10 @@
 											</button>
 										</div>
 										<div class="btn-group col-md-12">
+											<button type="button" value="bills"
+												class="btn btn-success btn-lg active">
+												<span class="glyphicon glyphicon-paperclip"></span>&nbsp;Bills
+											</button>
 											<button type="button" value="other"
 												class="btn btn-success btn-lg active">
 												<span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp;Other&nbsp;&nbsp;
@@ -55,12 +64,14 @@
 										</div>
 										<input type="hidden" id="categoryValue" name="category"
 											value="">
+											<input type="hidden" id="expenseIdInput" name="expenseId"
+											value="">
 
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="amount">Amount</label> <input type="text"
-												class="form-control" name="amount" placeholder="Enter Value">
+												class="form-control" id="expenseAmount" name="amount" value="123">
 										</div>
 
 										<div class="form-group">
@@ -69,22 +80,15 @@
 												placeholder="Enter Tags">
 										</div>
 
-										<div class="form-group">
-											<label for="date">Edited on</label> <input
-												class="datepicker form-control" data-format="dd/mm/yyyy"
-												name="date" size="16" type="text" value=""
-												placeholder="Choose a date"> <span class="add-on"><i
-												class="icon-th"></i></span>
-										</div>
 
-										<input class="btn btn-default" id="saveExpense" type="submit"
-											value="submit">
+
+
 
 
 
 									</div>
 
-								</form>
+								
 							</div>
 						</div>
 					</div>
@@ -93,8 +97,9 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					<input class="btn btn-primary" id="saveExpense" type="submit"
-											value="Save">
+						value="Save">
 				</div>
+				</form>
 			</div>
 			<!-- /.modal-content -->
 		</div>
@@ -104,6 +109,7 @@
 	<table id="box-table-a">
 		<thead>
 			<tr>
+				<th>Category</th>
 				<th>Tags</th>
 				<th>Amount</th>
 
@@ -113,15 +119,17 @@
 			<c:if test="${not empty expenses}">
 				<c:forEach var="expense" items="${expenses}">
 					<tr class="record">
-						<td>${expense.getTags()}</td>
-						<td>&#8377;&nbsp;${expense.getAmount()}</td>
-						<td style="display: none;">${expense.getId()}</td>
+						<td class="categoryField">${expense.getCategoryName()}</td>
+						<td class="tagsField">${expense.getTags()}</td>
+						<td class="amountField">&#8377;&nbsp;${expense.getAmount()}</td>
+						<td class="expenseIdField" style="display: none;">${expense.getId()}</td>
 					</tr>
 				</c:forEach>
 			</c:if>
 		<tfoot>
 			<tr>
 				<td>Total</td>
+				<td></td>
 				<td>&#8377;&nbsp;${total}</td>
 			</tr>
 		</tfoot>
@@ -129,11 +137,15 @@
 
 	</table>
 </div>
+
+<script src="<c:url value="/resources/js/custom/tagmanager.js" />"></script>
+<script src="<c:url value="/resources/js/custom/category.js" />"></script>
+<script src="<c:url value="/resources/js/jquery.autocomplete.js" />"></script>
+<script src="<c:url value="/resources/js/custom/autocomplete.js" />"></script>
+<script src="<c:url value="/resources/js/custom/loadExpense.js" />"></script>
 <script>
-	$(".record").click(function() {
-		$('#myModal').modal();
-		var id = $(".record :last");
-		console.log(id);
+	$(document).ready(function() {
+		$(".tm-input").tagsManager();
 
 	});
 </script>

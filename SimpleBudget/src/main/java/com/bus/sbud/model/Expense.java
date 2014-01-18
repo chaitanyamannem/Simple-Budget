@@ -3,8 +3,11 @@
  */
 package com.bus.sbud.model;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
+
+import com.bus.sbud.dao.CategoryDAO;
 
 /**
  * @author chaitanyam
@@ -107,6 +110,17 @@ public class Expense {
 	 */
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
+	}
+	
+	public String getCategoryName(){
+		CategoryDAO categoryDAO = new CategoryDAO();
+		try {
+			return categoryDAO.findNameById(categoryId);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

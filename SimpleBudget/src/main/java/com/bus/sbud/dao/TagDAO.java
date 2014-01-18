@@ -108,6 +108,26 @@ public class TagDAO {
 		return tagids;
 	}
 
+	public Boolean isTagLinkedToExpense(Long tagId) throws SQLException {
+
+		try {
+			st = con.createStatement();
+			ResultSet rs = st
+					.executeQuery("select EXPENSE_ID from EXPENSE_TAG WHERE TAG_ID = "
+							+ tagId + ";");
+			boolean found = rs.first();
+
+			return found;
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				pstmt.close();
+			}
+		}
+		return null;
+	}
+
 	public Long save(Tag tag) throws SQLException {
 
 		String insertTag = "INSERT INTO TAG(NAME) VALUES (?);";
@@ -152,14 +172,13 @@ public class TagDAO {
 		} finally {
 			pstmt.close();
 
-			
-
 		}
 	}
 
 	public Map<String, Long> findTagNameAndIDsBySearchString(
 			String searchParameter) throws SQLException {
-		String getTags = "SELECT * FROM TAG WHERE NAME LIKE '"+ searchParameter +"%';";
+		String getTags = "SELECT * FROM TAG WHERE NAME LIKE '"
+				+ searchParameter + "%';";
 		Map<String, Long> tagMap = new LinkedHashMap<String, Long>();
 		try {
 			st = con.createStatement();
@@ -174,7 +193,7 @@ public class TagDAO {
 			e.printStackTrace();
 		} finally {
 			st.close();
-			
+
 		}
 		return tagMap;
 	}
