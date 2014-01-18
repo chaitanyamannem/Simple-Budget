@@ -142,14 +142,14 @@ public class ExpenseController {
 	}
 
 	@RequestMapping({ "/showByDate" })
-	public String showExpensesOnDate(@RequestParam("onDate") String onDate,
+	public String showExpensesOnDate(@RequestParam("date") String onDate,
 			Map<String, Object> model) {
 		double total = 0.0;
 		ExpenseDAO expenseDao = new ExpenseDAO();
 		TagDAO tagDao = new TagDAO();
 		// onDate = "2014-01-08";
 		Date date = DateUtil.parseDate(onDate,
-				DateUtil.DATE_FORMAT_YYYY_MM_DD_WITH_DASH);
+				DateUtil.DATE_FORMAT_DD_MM_YYYY_WITH_SLASH);
 		try {
 			List<Long> expenseids = expenseDao
 					.findExpensesByDate(date == null ? new Date() : date);

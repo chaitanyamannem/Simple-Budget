@@ -1,9 +1,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet"
+	href="<c:url value="/resources/css/datepicker.css" />" />
+<script src="<c:url value="/resources/js/bootstrap-datepicker.js" />"></script>
+<link rel="stylesheet"
 	href="<c:url value="/resources/css/tagmanager.css" />" />
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/custom/autocomplete.css" />" />
 <h1 class="col-md-8 col-md-offset-2">Expenses</h1>
+<div id="showDate">
+<form id="dateForm" action="showByDate">
+	<input id="dateInput" class="datepicker" data-format="dd/mm/yyyy"
+		name="date" size="16" type="text" value=""
+		placeholder="Choose a date"> <span class="add-on"><i
+		class="icon-th"></i></span>
+	</form>
+</div>
 <div class="col-md-8 col-md-offset-2">
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -146,6 +157,16 @@
 <script>
 	$(document).ready(function() {
 		$(".tm-input").tagsManager();
+		var dateForm = $("#dateForm");
+		$(function() {
+			$(".datepicker").datepicker({
+				format : 'dd/mm/yyyy',
+				autoclose : true
+			}).on('changeDate', function(ev) {
+				dateForm.submit();
+
+			});
+		});
 
 	});
 </script>
