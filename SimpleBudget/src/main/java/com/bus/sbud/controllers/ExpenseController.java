@@ -191,5 +191,10 @@ public class ExpenseController {
 	public String showExpensesOnDate(Map<String, Object> model) {
 		return "showCat";
 	}
+	
+	@RequestMapping({ "/showBar" })
+	public String showGraphByDateInAMonth(Map<String, Object> model) {
+		return "showBarPage";
+	}
 
 }

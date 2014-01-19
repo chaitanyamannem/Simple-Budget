@@ -18,4 +18,7 @@
 	<definition name="showCat" extends="baseLayout">
 		<put-attribute name="primary-content"  value="/WEB-INF/tiles/showCategoryPie.jsp" />
 	</definition>
+	<definition name="showBarPage" extends="baseLayout">
+		<put-attribute name="primary-content"  value="/WEB-INF/tiles/showDateBar.jsp" />
+	</definition>
 </tiles-definitions>

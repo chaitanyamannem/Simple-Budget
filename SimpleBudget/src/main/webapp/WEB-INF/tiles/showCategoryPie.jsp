@@ -3,6 +3,7 @@
 	href="<c:url value="/resources/css/nv.d3.css" />" />
 <div>
 <h1>Pie chart</h1>
+<h2 class="total"></h2>
 	<svg style="height: 600px" />
 </div>
 

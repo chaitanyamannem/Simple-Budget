@@ -4,12 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import com.bus.sbud.model.Expense;
+import com.bus.sbud.util.DateUtil;
 import com.bus.sbud.util.JDBCConnectionManager;
 
 /**
@@ -20,6 +24,7 @@ public class ExpenseDAO {
 	private static final Logger logger = Logger.getLogger("ExpenseDAO");
 	private static Connection con = JDBCConnectionManager.getConnection();
 	private static PreparedStatement pstmt = null;
+	private static Statement st = null;
 
 	/**
 	 * 
@@ -135,6 +140,37 @@ public class ExpenseDAO {
 			}
 		}
 		return expenseids;
+	}
+	
+	/**
+	 * Gives current month data only
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
+	public Map<String, Double> findTotalByDayInAMonth() throws SQLException {
+		Map<String, Double> map = new LinkedHashMap<String, Double>();
+		String query = "SELECT WHEN_CREATED, SUM(AMOUNT) from EXPENSE " +
+				" WHERE (MONTH(WHEN_CREATED) = (MONTH(NOW())) AND YEAR(WHEN_CREATED) = YEAR(NOW())) " +
+				" GROUP BY WHEN_CREATED ORDER BY WHEN_CREATED; ";
+		try {
+			st = con.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			
+			while (rs.next()) {
+				Date whenCreated = new Date(rs.getDate(1).getTime());
+				Double amount = rs.getDouble(2);
+				map.put(DateUtil.getNumericDay(whenCreated), amount);
+			}
+			logger.info("Date Map size " + map.size());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			st.close();
+
+		}
+
+		return map;
 	}
 
 }

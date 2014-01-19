@@ -1,20 +1,16 @@
-
 $.getJSON('../autocomplete/showpie', function(data) {
 
 	var testDatas = [];
+	var total = 0;
 	$.each(data, function(key, value) {
-		console.log(key + ": " + value);
 		var pieElement = {};
 		pieElement.key = key;
 		pieElement.y = value;
-		console.log(pieElement);
+		total = total + value;
 		testDatas.push(pieElement);
-		console.log("****");
-		console.log(testDatas);
-
 	});
-	console.log("###");
-	console.log(testDatas);
+	$(".total").html("Total : &#8377;&nbsp;" + total.toFixed(2));
+
 	nv.addGraph(function() {
 		var width = 500, height = 500;
 
@@ -34,26 +30,3 @@ $.getJSON('../autocomplete/showpie', function(data) {
 		return chart;
 	});
 });
-
-var testdata = [ {
-	key : "One",
-	y : 5
-}, {
-	key : "Two",
-	y : 2
-}, {
-	key : "Three",
-	y : 9
-}, {
-	key : "Four",
-	y : 7
-}, {
-	key : "Five",
-	y : 4
-}, {
-	key : "Six",
-	y : 3
-}, {
-	key : "Seven",
-	y : .5
-} ];
