@@ -2,6 +2,7 @@ package com.bus.sbud.controllers;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -90,11 +91,17 @@ public class ExpenseController {
 			@RequestParam("amount") double amount,
 			@RequestParam("hidden-tags") String hiddenTags,
 			@RequestParam("category") String category, Map<String, Object> model) {
-		logger.info("########Entered expense controller - /edit ##########");
-		logger.info(hiddenTags);
-		logger.info(amount + "");
+		logger.info("##################################################################################################################");
+		logger.info("Class - ExpenseController");
+		logger.info("Method - editExpense - start");
+		logger.info("expenseId = " + id);
+		logger.info("Edit tags input = " + hiddenTags);
+		logger.info("Amount = " + amount);
+		logger.info("category = " + category);
+		logger.info("##################################################################################################################");
 
 		String[] tags = StringUtils.split(hiddenTags, ',');
+		String showDate = "";
 		ExpenseDAO expenseDAO = new ExpenseDAO();
 		TagDAO tagDao = new TagDAO();
 		CategoryDAO categoryDAO = new CategoryDAO();
@@ -120,25 +127,34 @@ public class ExpenseController {
 			// always set tlm
 			currentExpense.setTlm(lastModified);
 			expenseDAO.update(currentExpense);
-
+			logger.info("Tags to edit" + tags.toString());
 			for (String tagName : tags) {
 				long tagId = tagDao.findIdByName(tagName);
+				logger.info("Tag name " + tagName);
+				logger.info("Tag id " + tagId);
 				if (tagId == -1) {
 					Tag tag = new Tag(tagName);
 					tagId = tagDao.save(tag);
 				}
-				if (!tagDao.isTagLinkedToExpense(tagId)) {
+				boolean isTagLinked = tagDao.isTagLinkedToExpense(tagId,
+						currentExpense.getId());
+				logger.info("isTagLinked = " + isTagLinked);
+				if (!isTagLinked) {
 					tagDao.linkTagNExpense(currentExpense.getId(), tagId);
 				}
 
 			}
+			// form the date for the url
+			Date whenCreated = currentExpense.getWhenCreated();
+			showDate = DateUtil.formatDate(whenCreated,
+					DateUtil.DATE_FORMAT_DD_MM_YYYY_WITH_SLASH);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		return "homePage";
+		logger.info("********************************************End**********************************************************************");
+		return "redirect:showByDate?date=" + showDate;
 	}
 
 	@RequestMapping({ "/showByDate" })

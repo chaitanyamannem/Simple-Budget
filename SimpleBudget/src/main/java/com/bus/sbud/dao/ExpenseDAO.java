@@ -101,6 +101,8 @@ public class ExpenseDAO {
 				expense.setId(rs.getLong(1));
 				expense.setAmount(rs.getDouble(2));
 				expense.setCategoryId(rs.getLong("CATEGORY_ID"));
+				Date whenCreated =  new Date(rs.getDate("WHEN_CREATED").getTime());
+				expense.setWhenCreated(whenCreated);
 			}
 			return expense;
 		} catch (SQLException se) {

@@ -108,13 +108,13 @@ public class TagDAO {
 		return tagids;
 	}
 
-	public Boolean isTagLinkedToExpense(Long tagId) throws SQLException {
+	public Boolean isTagLinkedToExpense(Long tagId, Long expenseId) throws SQLException {
 
 		try {
 			st = con.createStatement();
 			ResultSet rs = st
 					.executeQuery("select EXPENSE_ID from EXPENSE_TAG WHERE TAG_ID = "
-							+ tagId + ";");
+							+ tagId + " AND EXPENSE_ID =" + expenseId +";");
 			boolean found = rs.first();
 
 			return found;
@@ -153,6 +153,10 @@ public class TagDAO {
 	}
 
 	public void linkTagNExpense(long expenseId, long tagId) throws SQLException {
+		logger.info("##########################################start########################################################################");
+		logger.info("expenseId = " + expenseId);
+		logger.info("tagId = " + tagId);
+		logger.info("##################################################################################################################");
 
 		try {
 
@@ -163,9 +167,9 @@ public class TagDAO {
 			pstmt.setLong(1, expenseId);
 			pstmt.setLong(2, tagId);
 
-			pstmt.execute();
+			int queryResponse = pstmt.executeUpdate();
 
-			System.out.println("query executed");
+			logger.info("queryResponse for insert" + queryResponse);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -173,6 +177,8 @@ public class TagDAO {
 			pstmt.close();
 
 		}
+		logger.info("********************************************End**********************************************************************");
+		
 	}
 
 	public Map<String, Long> findTagNameAndIDsBySearchString(

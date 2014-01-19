@@ -12,7 +12,7 @@ import java.util.Date;
  * 
  */
 public class DateUtil {
-	
+
 	public static final String DATE_FORMAT_YYYY_MM_DD_WITH_DASH = "yyyy-MM-dd";
 	public static final String DATE_FORMAT_DD_MM_YYYY_WITH_SLASH = "dd/MM/yyyy";
 
@@ -28,13 +28,21 @@ public class DateUtil {
 
 		return date;
 	}
+	
+	public static String formatDate(Date date, String format){
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+		return simpleDateFormat.format(date);
+	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println(parseDate("2014-01-11",DATE_FORMAT_YYYY_MM_DD_WITH_DASH));
-		System.out.println(parseDate("15/01/2014",DATE_FORMAT_DD_MM_YYYY_WITH_SLASH));
+		System.out.println(parseDate("2014-01-11",
+				DATE_FORMAT_YYYY_MM_DD_WITH_DASH));
+		System.out.println(parseDate("15/01/2014",
+				DATE_FORMAT_DD_MM_YYYY_WITH_SLASH));
+		System.out.println(formatDate(new Date(), DATE_FORMAT_DD_MM_YYYY_WITH_SLASH));
 	}
 
 }
