@@ -21,4 +21,7 @@
 	<definition name="showBarPage" extends="baseLayout">
 		<put-attribute name="primary-content"  value="/WEB-INF/tiles/showDateBar.jsp" />
 	</definition>
+	<definition name="linkDropBoxPage" extends="baseLayout">
+		<put-attribute name="primary-content"  value="/WEB-INF/tiles/linkDropBox.jsp" />
+	</definition>
 </tiles-definitions>

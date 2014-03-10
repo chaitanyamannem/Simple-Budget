@@ -3,11 +3,10 @@
  */
 package com.bus.sbud.model;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.bus.sbud.dao.CategoryDAO;
 
 /**
  * @author chaitanyam
@@ -15,17 +14,34 @@ import com.bus.sbud.dao.CategoryDAO;
  */
 public class Expense {
 
-	private long id;
+	private Long id;
 	private double amount;
-	private Date whenCreated;
+	private Date spentOn;
+	// time since last modified
 	private Date tlm;
 	private Long categoryId;
+	private String categoryName;
+
 	private List<String> tags;
+
+	public Expense() {
+
+	}
+
+	public Expense(double amount, List<String> tags, Date spentOn,
+			Long categoryId) {
+		this.amount = amount;
+		this.tags = tags;
+		this.spentOn = spentOn;
+		this.categoryId = categoryId;
+		tlm = new Date();
+
+	}
 
 	/**
 	 * @return the id
 	 */
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -33,7 +49,7 @@ public class Expense {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -53,18 +69,18 @@ public class Expense {
 	}
 
 	/**
-	 * @return the whenCreated
+	 * @return the spentOn
 	 */
-	public Date getWhenCreated() {
-		return whenCreated;
+	public Date getSpentOn() {
+		return spentOn;
 	}
 
 	/**
-	 * @param whenCreated
-	 *            the whenCreated to set
+	 * @param spentOn
+	 *            the spentOn to set
 	 */
-	public void setWhenCreated(Date whenCreated) {
-		this.whenCreated = whenCreated;
+	public void setSpentOn(Date spentOn) {
+		this.spentOn = spentOn;
 	}
 
 	/**
@@ -111,16 +127,28 @@ public class Expense {
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
 	}
-	
-	public String getCategoryName(){
-		CategoryDAO categoryDAO = new CategoryDAO();
-		try {
-			return categoryDAO.findNameById(categoryId);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+	/**
+	 * @return the categoryName
+	 */
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	/**
+	 * @param categoryName
+	 *            the categoryName to set
+	 */
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	public void extractTagNamesFromTagList(List<Tag> tags) {
+		List<String> tagNames = new ArrayList<String>();
+		for (Tag tag : tags) {
+			tagNames.add(tag.getName());
 		}
-		return null;
+		setTags(tagNames);
 	}
 
 }

@@ -1,5 +1,5 @@
 
-package org.springframework.security.samples.config;
+package com.bus.sbud.security;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

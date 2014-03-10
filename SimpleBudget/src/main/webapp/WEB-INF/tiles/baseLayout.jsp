@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />" />
 <link rel="stylesheet" href="<c:url value="/resources/css/custom/box-table.css" />" />
 <script src="<c:url value="/resources/js/jquery.js" />"></script>
+<script src="<c:url value="/resources/js/pouchdb-1.1.0.min.js" />"></script>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

@@ -27,5 +27,13 @@ public class HomePageController {
 		
 		return "homePage";
 	}
+	
+	@RequestMapping({"/linkDropBox"})
+	public String linkDropBox(Map<String, Object> model){
+		logger.info("########/linkDropBox##########");
+		
+		
+		return "linkDropBoxPage";
+	}
 
 }

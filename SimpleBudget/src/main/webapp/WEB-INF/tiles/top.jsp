@@ -13,15 +13,15 @@
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="#">Home</a></li>
-				<li><a href="/SimpleBudget-0.2/expenses/add">Add</a></li>
-				<li><a href="/SimpleBudget-0.2/expenses/showByDate?date="
+				<li><a href="/SimpleBudget-0.3/expenses/showAddExpensePage">Add</a></li>
+				<li><a href="/SimpleBudget-0.3/expenses/showByDate?date="
 					data-toggle="collapse" data-target="#showDate">Show</a></li>
 
 				 <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Graphs <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="/SimpleBudget-0.2/expenses/showcat">Category Pie Chart</a></li>
-                <li><a href="/SimpleBudget-0.2/expenses/showBar">Datewise Bar Graph</a></li>
+                <li><a href="/SimpleBudget-0.3/expenses/showcat">Category Pie Chart</a></li>
+                <li><a href="/SimpleBudget-0.3/expenses/showBar">Datewise Bar Graph</a></li>
                 <li><a href="#">Something else here</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">Nav header</li>

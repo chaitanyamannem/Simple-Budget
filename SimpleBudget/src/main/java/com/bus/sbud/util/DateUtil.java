@@ -6,12 +6,17 @@ package com.bus.sbud.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Logger;
+
+import org.springframework.util.StringUtils;
 
 /**
  * @author chaitanyam
  * 
  */
 public class DateUtil {
+	
+	private static final Logger logger = Logger.getLogger("DateUtil");
 
 	public static final String DATE_FORMAT_YYYY_MM_DD_WITH_DASH = "yyyy-MM-dd";
 	public static final String DATE_FORMAT_DD_MM_YYYY_WITH_SLASH = "dd/MM/yyyy";
@@ -20,12 +25,14 @@ public class DateUtil {
 
 	public static Date parseDate(String stringDate, String format) {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
-
 		Date date = null;
+		if(StringUtils.isEmpty(stringDate)){
+			return date;
+		}
 		try {
 			date = simpleDateFormat.parse(stringDate);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			logger.warning("Unable to parse date" + e.getMessage());
 		}
 
 		return date;
