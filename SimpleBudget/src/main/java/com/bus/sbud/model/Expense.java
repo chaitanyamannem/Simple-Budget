@@ -21,6 +21,8 @@ public class Expense {
 	private Date tlm;
 	private Long categoryId;
 	private String categoryName;
+    private String notes;
+    //TODO Trimmed notes
 
 	private List<String> tags;
 
@@ -141,6 +143,21 @@ public class Expense {
 	 */
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+	}
+	
+
+	/**
+	 * @return the notes
+	 */
+	public String getNotes() {
+		return notes;
+	}
+
+	/**
+	 * @param notes the notes to set
+	 */
+	public void setNotes(String notes) {
+		this.notes = notes;
 	}
 
 	public void extractTagNamesFromTagList(List<Tag> tags) {

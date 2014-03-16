@@ -20,7 +20,7 @@ public interface ExpenseService {
 	 * @param spentOnDate
 	 * @param category
 	 */
-	public void addAnExpense(double amount, String tags, String spentOnDate, String category);
+	public void addAnExpense(double amount, String tags, String spentOnDate, String category, String notes);
 	
 
 	/**

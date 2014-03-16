@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ import com.bus.sbud.util.DateUtil;
 @Service
 public class ExpenseServiceImpl implements ExpenseService {
 
+	private static final Logger logger = Logger.getLogger("ExpenseServiceImpl");
+
 	@Autowired
 	CategoryDAO categoryDAO;
 	@Autowired
@@ -45,20 +48,31 @@ public class ExpenseServiceImpl implements ExpenseService {
 	 * java.lang.String, java.lang.String, java.lang.String)
 	 */
 	public void addAnExpense(double amount, String tags, String spentOnDate,
-			String category) {
+			String category, String notes) {
 		// tags
 		String[] tagsArray = StringUtils.split(tags, ',');
 		List<String> tagsList = Arrays.asList(tagsArray);
 
-		// spentOn
-		Date today = new Date();
-		Date parsedDate = DateUtil.parseDate(spentOnDate,
-				DateUtil.DATE_FORMAT_DD_MM_YYYY_WITH_SLASH);
-		Date spentOn = parsedDate == null ? today : parsedDate;
+		// spentOn - if empty use today as default
+		Date spentOn = new Date();
+		if (!StringUtils.isEmpty(spentOnDate)) {
+			Date parsedDate = DateUtil.parseDate(spentOnDate,
+					DateUtil.DATE_FORMAT_DD_MM_YYYY_WITH_SLASH);
+			spentOn = parsedDate;
+		}
+		logger.info("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+		logger.info("SpentON" + spentOn);
+		logger.info("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+
 		// category
 		Long categoryId = categoryDAO.findIdByName(category);
+
 		// save the expense
 		Expense expense = new Expense(amount, tagsList, spentOn, categoryId);
+		// notes
+		if (StringUtils.isNotEmpty(notes)) {
+			expense.setNotes(notes);
+		}
 		expenseDAO.insert(expense);
 		// link the tags to expense
 		for (String tagName : tagsList) {
@@ -155,12 +169,22 @@ public class ExpenseServiceImpl implements ExpenseService {
 	}
 
 	public List<Expense> getExpensesByDate(String onDate) {
-		Date date = DateUtil.parseDate(onDate,
-				DateUtil.DATE_FORMAT_DD_MM_YYYY_WITH_SLASH);
+		// Set the default date to be today
+		Date date = new Date();
+		if (StringUtils.isNotEmpty(onDate)) {
+			date = DateUtil.parseDate(onDate,
+					DateUtil.DATE_FORMAT_DD_MM_YYYY_WITH_SLASH);
+		}
 		List<Expense> expenses = expenseDAO.findAllExpensesByDate(date);
+
 		for (Expense expense : expenses) {
 			List<Tag> tagsOfAnExpense = expenseTagDAO
 					.findsAllTagsByExpenseId(expense.getId());
+			logger.info("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+			for (Tag tag : tagsOfAnExpense) {
+				logger.info("Tags of an expense" + tag.getName());
+			}
+			logger.info("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 			expense.extractTagNamesFromTagList(tagsOfAnExpense);
 		}
 		return expenses;
@@ -173,27 +197,5 @@ public class ExpenseServiceImpl implements ExpenseService {
 		}
 		return total;
 	}
-
-	/*
-	 * public static void main(String[] args) {
-	 * 
-	 * Set<String> aSet = new HashSet<String>(); aSet.add("a1"); aSet.add("a2");
-	 * aSet.add("a3"); aSet.add("c1"); aSet.add("c2");
-	 * 
-	 * 
-	 * Set<String> bSet = new HashSet<String>(); bSet.add("b1"); bSet.add("b2");
-	 * bSet.add("b3"); bSet.add("c1"); bSet.add("c2");
-	 * 
-	 * 
-	 * System.out.println("set"); Set<String> cSet = new HashSet<String>();
-	 * cSet.addAll(aSet); System.out.println(aSet.removeAll(bSet));
-	 * System.out.println(aSet); System.out.println(bSet);
-	 * System.out.println(cSet);
-	 * 
-	 * 
-	 * 
-	 * 
-	 * }
-	 */
 
 }

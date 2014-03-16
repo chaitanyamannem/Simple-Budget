@@ -11,6 +11,9 @@ package com.bus.sbud.util;
  */
 public class SBUDConstants {
 	
+	//Special Characters
+	public static final String PERCENT_SYMBOL = "%";
+	
 	
 	//Database table names
 	public static final String TABLE_EXPENSE = "EXPENSE";
@@ -29,6 +32,7 @@ public class SBUDConstants {
 	//EXPENSE table column names
 	public static final String TABLE_EXPENSE_COLUMN_AMOUNT = "AMOUNT";
 	public static final String TABLE_EXPENSE_COLUMN_SPENT_ON = "SPENT_ON";
+	public static final String TABLE_EXPENSE_COLUMN_NOTES = "NOTES";
 	
 	//CATEGORY table column names
 	

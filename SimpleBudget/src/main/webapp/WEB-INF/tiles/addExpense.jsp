@@ -3,66 +3,71 @@
 	href="<c:url value="/resources/css/tagmanager.css" />" />
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/datepicker.css" />" />
-	<link rel="stylesheet"
+<link rel="stylesheet"
 	href="<c:url value="/resources/css/custom/autocomplete.css" />" />
 
 <div class="container">
 	<div class="row">
 		<h1 class="col-md-12 col-md-offset-1">Add An Expense</h1>
 		<div class="col-md-10">
-			<form role="form" action="getExpenseData">
-				<div class="col-md-6 category pull-right">
+			<form role="form" method="post" action="getExpenseData">
+				<div class="col-md-12 category pull-left">
 					<label class="col-md-12">Category</label>
 					<div class="btn-group col-md-12">
 						<button type="button" value="food"
-							class="btn btn-success btn-lg active">
+							class="btn btn-success btn-lg active col-md-4">
 							<span class="glyphicon glyphicon-cutlery"></span>&nbsp;&nbsp;Food&nbsp;&nbsp;&nbsp;
 						</button>
 						<button type="button" value="movies"
-							class="btn btn-success btn-lg active">
+							class="btn btn-success btn-lg active col-md-4">
 							<span class="glyphicon glyphicon-film"></span>&nbsp;&nbsp;Movies&nbsp;
 						</button>
 						<button type="button" value="petrol"
-							class="btn btn-success btn-lg active">
+							class="btn btn-success btn-lg active col-md-4">
 							<span class="glyphicon glyphicon-tint"></span>&nbsp;&nbsp;Petrol&nbsp;
 						</button>
 					</div>
 					<div class="btn-group col-md-12">
 						<button type="button" value="house"
-							class="btn btn-success btn-lg active">
+							class="btn btn-success btn-lg active col-md-4">
 							<span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;House&nbsp;&nbsp;
 						</button>
 						<button type="button" value="shopping"
-							class="btn btn-success btn-lg active">
+							class="btn btn-success btn-lg active col-md-4">
 							<span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;Shopping
 						</button>
 						<button type="button" value="beverages"
-							class="btn btn-success btn-lg active">
+							class="btn btn-success btn-lg active col-md-4">
 							<span class="glyphicon glyphicon-glass"></span>&nbsp;Beverages
 						</button>
 					</div>
 					<div class="btn-group col-md-12">
-					<button type="button" value="bills"
-							class="btn btn-success btn-lg active">
+						<button type="button" value="bills"
+							class="btn btn-success btn-lg active col-md-4">
 							<span class="glyphicon glyphicon-paperclip"></span>&nbsp;Bills
 						</button>
 						<button type="button" value="other"
-							class="btn btn-success btn-lg active">
+							class="btn btn-success btn-lg active col-md-4">
 							<span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp;Other&nbsp;&nbsp;
+						</button>
+						<button type="button" value="other"
+							class="btn btn-success btn-lg disabled col-md-4">
+							<span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Add New Category&nbsp;&nbsp;
 						</button>
 					</div>
 					<input type="hidden" id="categoryValue" name="category" value="">
 
 				</div>
-				<div class="col-md-4  pull-left">
+				<div class="col-md-4  pull-right">
 					<div class="form-group">
 						<label for="amount">Amount</label> <input type="text"
 							class="form-control" name="amount" placeholder="Enter Value">
 					</div>
 
 					<div class="form-group">
-						<label for="tags">Tags</label> <input type="text" id="tags" name="tags"
-							class="tm-input form-control" placeholder="Enter Tags">
+						<label for="tags">Tags</label> <input type="text" id="tags"
+							name="tags" class="tm-input form-control"
+							placeholder="Enter Tags">
 					</div>
 
 					<div class="form-group">
@@ -72,9 +77,14 @@
 							placeholder="Choose a date"> <span class="add-on"><i
 							class="icon-th"></i></span>
 					</div>
+					<div class="form-group">
+						<textarea class="form-control" name="notes" rows="5"
+							placeholder="Write something about this expense if any..."></textarea>
+					</div>
 
 					<input class="btn btn-default" id="saveExpense" type="submit"
-						value="submit">
+						value="submit"> <input type="hidden"
+						name="${_csrf.parameterName}" value="${_csrf.token}" />
 
 
 

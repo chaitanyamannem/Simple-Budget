@@ -53,7 +53,7 @@ public class JDBCExpenseTagDAO implements ExpenseTagDAO {
 	}
 
 	public List<Tag> findsAllTagsByExpenseId(Long expenseId) {
-		String getTagIdsByExpenseQuery = "SELECT * FROM EXPENSE_TAG WHERE EXPENSE_ID = ?;";
+		String getTagIdsByExpenseQuery = "SELECT T.NAME, ET.TAG_ID FROM TAG T,EXPENSE_TAG ET WHERE T.ID = ET.TAG_ID AND ET.EXPENSE_ID = ?;";
 		List<Tag> tags = this.jdbcTemplate.query(getTagIdsByExpenseQuery,
 				new Object[] { expenseId }, new RowMapper<Tag>() {
 					public Tag mapRow(ResultSet rs, int rowNum)
@@ -61,6 +61,7 @@ public class JDBCExpenseTagDAO implements ExpenseTagDAO {
 						Tag tag = new Tag();
 						tag.setId(rs
 								.getLong(SBUDConstants.TABLE_COMMON_COLUMN_TAG_ID));
+						tag.setName(rs.getString(SBUDConstants.TABLE_COMMON_NAME));
 						return tag;
 					}
 				});

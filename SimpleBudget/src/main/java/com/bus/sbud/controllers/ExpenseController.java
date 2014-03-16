@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bus.sbud.dao.jdbc.JDBCExpenseDAO;
@@ -39,12 +40,13 @@ public class ExpenseController {
 		return "addExpensePage";
 	}
 
-	@RequestMapping({ "/getExpenseData" })
+	@RequestMapping(value="/getExpenseData", method = RequestMethod.POST)
 	public String saveExpense(@RequestParam("amount") double amount,
 			@RequestParam("hidden-tags") String hiddenTags,
 			@RequestParam("date") String date,
-			@RequestParam("category") String category, Map<String, Object> model) {
-		expenseService.addAnExpense(amount, hiddenTags, date, category);
+			@RequestParam("category") String category, 
+			@RequestParam("notes") String notes,Map<String, Object> model) {
+		expenseService.addAnExpense(amount, hiddenTags, date, category, notes);
 		return "homePage";
 	}
 
@@ -69,7 +71,7 @@ public class ExpenseController {
 		logger.info("No of expenses = " + expenses.size());
 		model.put("expenses", expenses);
 		model.put("total", expenseService.getTotalOfAllExpenses(expenses));
-
+		
 		return "showExpensesPage";
 	}
 
