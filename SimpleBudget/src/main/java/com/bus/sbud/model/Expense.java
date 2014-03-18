@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.bus.sbud.util.SBUDConstants;
 
 /**
  * @author chaitanyam
@@ -21,8 +22,8 @@ public class Expense {
 	private Date tlm;
 	private Long categoryId;
 	private String categoryName;
-    private String notes;
-    //TODO Trimmed notes
+	private String notes;
+	private String trimmedNotes;
 
 	private List<String> tags;
 
@@ -144,7 +145,6 @@ public class Expense {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
-	
 
 	/**
 	 * @return the notes
@@ -154,10 +154,24 @@ public class Expense {
 	}
 
 	/**
-	 * @param notes the notes to set
+	 * @param notes
+	 *            the notes to set
 	 */
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+	/**
+	 * @return the trimmedNotes
+	 */
+	public String getTrimmedNotes() {
+
+		if (notes != null && notes.length() <= 20) {
+			return notes;
+		}
+
+		return notes == null ? SBUDConstants.EMPTY : notes.substring(0, 20)
+				+ SBUDConstants.ELIPSIS;
 	}
 
 	public void extractTagNamesFromTagList(List<Tag> tags) {

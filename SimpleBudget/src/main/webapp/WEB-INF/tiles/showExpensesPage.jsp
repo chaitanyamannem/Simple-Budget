@@ -135,12 +135,7 @@
 						<td class="tagsField">${expense.getTags()}</td>
 						<td class="amountField">&#8377;&nbsp;${expense.getAmount()}&nbsp;
 						</td>
-						<td><button type="button"
-								class="btn btn-success glyphicon glyphicon-book showNotes"
-								data-container="body" data-toggle="popover"
-								data-placement="right" data-content="${expense.getNotes()}">
-
-							</button> </td>
+						<td>${expense.getTrimmedNotes()}</td>
 						<td class="expenseIdField" style="display: none;">${expense.getId()}</td>
 
 					</tr>
@@ -164,7 +159,6 @@
 <script src="<c:url value="/resources/js/jquery.autocomplete.js" />"></script>
 <script src="<c:url value="/resources/js/custom/autocomplete.js" />"></script>
 <script src="<c:url value="/resources/js/custom/loadExpense.js" />"></script>
-<script src="<c:url value="/resources/js/custom/showNotes.js" />"></script>
 <script>
 	$(document).ready(function() {
 		$(".tm-input").tagsManager();

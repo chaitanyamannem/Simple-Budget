@@ -13,6 +13,8 @@ public class SBUDConstants {
 	
 	//Special Characters
 	public static final String PERCENT_SYMBOL = "%";
+	public static final String ELIPSIS = "...";
+	public static final String EMPTY = "";
 	
 	
 	//Database table names
